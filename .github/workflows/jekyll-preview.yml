@@ -8,7 +8,8 @@ name: Deploy Jekyll site to Pages
 
 on:
   # Runs on pushes targeting the default branch
-  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
     branches: ["main"]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -39,7 +40,7 @@ jobs:
         with:
           ruby-version: '3.1' # Not needed with a .ruby-version file
       - name: Install dependencies
-        run: bundle install
+        run: bundle install          
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
@@ -63,3 +64,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          preview: true
